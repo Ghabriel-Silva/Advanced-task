@@ -17,18 +17,22 @@ function App() {
 
   return (
     <Box as="main" h="90vh"  maxW="680px" display="flex" flexDirection="column" alignItems="center" margin="auto">
-      <Flex gap="4" justify="space-between" w="100%"  justifyItems="center"  pl="16px" pr="16px" >
-        <Heading pl="3" fontSize={{base: 'sm', md: 'md', lg:'2xl'}}>Add Task</Heading>
+      <Flex background="red" gap="4" justify="space-between" w="100%"  justifyItems="center"  pl="16px" pr="16px" >
+        <Heading pl="3" fontSize={{base: 'sm', md:'md', lg:'2xl'}}>Add Task</Heading>
         <Text pr="3" textStyle="md">Numero</Text>
       </Flex>
-      <Flex h="10vh" gap="4" justify="space-evenly" align="center" wrap="wrap">
-        <Input w="sm"
+      <Flex h="auto" gap="4" justify="space-evenly" align="center" wrap="wrap" background="blue" w="100%" pt="10px">
+        <Input w={{
+            base: '100%',
+            md: '300px',
+            lg: '400px',
+        }}
           h="36px"
           type="text"
           placeholder='Task...'
           ref={refInput}
         />
-        <Flex direction="row" gap="4"  wrap="revert">
+        <Flex direction="row" gap="4"  wrap="w"  background="pink" >
           <NativeSelect.Root   value={prioridade} onChange={(e) => setPrioridade(e.target.value)} >
             <NativeSelect.Field placeholder="Priority" h="36px" w="130px" >
               <option value="alta">High </option>
