@@ -13,7 +13,7 @@ function App() {
 
   //Estado para salvar dados 
   const [dadosTask, setDadosTask] = useState({
-    Id: uuidv4(),
+    id: uuidv4(),
     tarefa: "",
     prioridade: "",
     categoria: "",
@@ -38,6 +38,10 @@ function App() {
   const handleToSend = () => {
     const task = dadosTask
     setAllTask(prev => [...prev, task])
+    setDadosTask((prev)=>({
+      ...prev, 
+      id:uuidv4(),
+    }))
   }
   //Oberservar o conportamento das tarefas entrando no array
   useEffect(()=>{
@@ -64,7 +68,7 @@ function App() {
           placeholder='Task...'
           ref={refInput}
         />
-        <Flex direction="row" gap="4" wrap="wrap" align="center" justifyContent="center" pt="10px">
+        <Flex direction="row" gap="4" wrap="wrap" alignItems="center" justifyContent="center" pt="2px" pb="2px"  w="100%" >
           <Box>
             <NativeSelect.Root  >
               <NativeSelect.Field name="prioridade" onChange={lidaComInput} placeholder="Prioridade" h="36px" w="130px"  >
@@ -100,7 +104,16 @@ function App() {
           </Button>
         </Flex>
       </Flex>
-      
+      {
+        
+        allTask.map((e)=>(
+          <Box key={e.id}>
+            <Text>{e.tarefa} </Text>
+            <Text> {e.categoria}  </Text>
+            <Text> {e.prioridade} </Text>
+          </Box>
+        ))
+      }
     
     </Box>
   )
