@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import { Input, Box, Flex, Heading, Text, Button, NativeSelect, For, HStack } from "@chakra-ui/react"
-import { mensagemAviso, mensagemSucesso } from './mensagensUtils';
+import { mensagemAviso, mensagemSucesso, mensagemDelete } from './mensagensUtils';
 import { v4 as uuidv4 } from 'uuid';
 import SectionTarefas from './components/ui/SectionTarefas';
 import { Toaster } from "@/components/ui/toaster"
-
-
-
 
 function App() {
 
@@ -29,6 +26,8 @@ function App() {
     categoria: "",
   })
 
+  
+
   //Estado para armazenar as task criadas e armazenar no locall storge / Imita o useEffect atualiza apenas na criação do component
   const [allTask, setAllTask] = useState(() => {
     const dadosSalvos = localStorage.getItem("tarefa") // busca dados salvos no localStorage
@@ -44,22 +43,23 @@ function App() {
 
 
   //Pega valores dos inputs e lança para o objeto e depois retorna para o conponente
-  const lidaComInput = (e) => {
+  const lidaComInput = useCallback((e) => {
     const { name, value } = e.target
     setDadosTask((prev) => ({
       ...prev,
       [name]: value,
     }))
-  }
-  console.log(dadosTask)
+    
+  },[])
+
+
 
 
 
   //Quando clicar no botão envie os dados salvos no objeto para o array, e limpe o id eos inputs, e adcione mensagem erro e sucesso
   const handleToSend = () => {
     const dadosPrenchidos = dadosTask.tarefa && dadosTask.categoria && dadosTask.prioridade
-
-
+  
     if (dadosPrenchidos) {
       const task = dadosTask
       setAllTask(prev => [...prev, task])
@@ -77,15 +77,16 @@ function App() {
       setButtonBlock(true)
       setTimeout(() => {
         setButtonBlock(false)
-      }, 5000)
+      }, 2000)
       mensagemAviso()
     }
   }
 
   //Excluir tarefas do meu array de objetos
-  const deleteTask = (id) => {
-    setAllTask((prev) => prev.filter((atual) => atual.id !== id))
-    console.log("erro")
+  const deleteTask = (id, index) => {
+    mensagemDelete("", index, ()=>{
+      setAllTask((prev) =>prev.filter((atual)=> atual.id !== id))
+    })
   }
 
   return (

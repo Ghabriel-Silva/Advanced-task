@@ -12,10 +12,10 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
     return (
         <Box w="100%" mt="40px">
             {isMobile ? (
-                dadosTarefas.map((e) => (
+                dadosTarefas.map((e, index) => (
                     <Card.Root key={e.id} mb="15px" >
                         <Card.Body gap="2" >
-                            <Card.Title fontSize="2xl" >Tarefa</Card.Title>
+                            <Card.Title fontSize="2xl" >Tarefa {index + 1} </Card.Title>
                             <Card.Description  >
                                 <Text as="span" fontSize="md" fontWeight="bold" mr="3px">
                                     Tarefa:
@@ -33,7 +33,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                             </Card.Description>
                         </Card.Body>
                         <Card.Footer justifyContent="flex-end" background="gray.800" height="50px" alignItems="center" pb="0" >
-                            <CloseButton onClick={() => deleteTask(e.id)} color="red.600"><MdDelete /></CloseButton>
+                            <CloseButton onClick={() => deleteTask(e.id, index)} color="red.600"><MdDelete /></CloseButton>
                             <CloseButton color="yellow.400"><AiFillEdit /></CloseButton>
                         </Card.Footer>
                     </Card.Root>
@@ -59,7 +59,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                     </Table.Header>
                     {/* Corpo da tabela onde ficam os dados */}
                     <Table.Body>
-                        {dadosTarefas.map((e) => (
+                        {dadosTarefas.map((e, index) => (
                             <Table.Row key={e.id}>
                                 {/* Celula de cada linha */}
                                 <Table.Cell>
@@ -72,7 +72,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                                 <Table.Cell >{e.prioridade}</Table.Cell>
                                 <Table.Cell >{e.categoria}</Table.Cell>
                                 <Table.Cell textAlign="center"  > <CloseButton color="yellow.400"><AiFillEdit /></CloseButton> </Table.Cell>
-                                <Table.Cell textAlign="end"  ><CloseButton onClick={() => deleteTask(e.id)} color="red.600"><MdDelete /></CloseButton> </Table.Cell>
+                                <Table.Cell textAlign="end"  ><CloseButton onClick={() => deleteTask(e.id, index)} color="red.600"><MdDelete /></CloseButton> </Table.Cell>
                             </Table.Row>
                         ))}
                     </Table.Body>

@@ -1,25 +1,35 @@
 import { toaster } from "@/components/ui/toaster";
-import { createToaster } from "@chakra-ui/react";
-
-
-export function  mensagemSucesso(mensagem){
 
 
 
+export function mensagemSucesso(mensagem) {
     toaster.create({
-        title: mensagem || "Tarefa adicionada com sucesso!", 
+        title: mensagem || "Tarefa adicionada com sucesso!",
         type: "success",
-    
-        
+        duration: 2000,
+
     })
-    console.log("função funcionando sucesso")
 }
 
-export function mensagemAviso(mensagem){
+export function mensagemAviso(mensagem) {
     toaster.create({
         title: mensagem || "Por Favor preencha todos os campos!",
-        type:"warning",
-        max: true,
+        type: "info",
+        duration: 2000,
+
     })
-    console.log("função funcionando")
+}
+
+export function mensagemDelete(mensagem, index, onConfirm) {
+    toaster.create({
+        title: mensagem || `Tem certeza que quer deletar a tarefa ${index + 1} ?`,
+        type: "warning",
+        duration: 4000,
+        action: {
+            label: "Sim",
+            onClick: () => {
+                onConfirm()
+            },
+        }
+    })
 }
