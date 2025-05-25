@@ -1,16 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import { Input, Box, Flex, Heading, Text, Button, NativeSelect } from "@chakra-ui/react"
+import { Input, Box, Flex, Heading, Text, Button, NativeSelect, For, HStack } from "@chakra-ui/react"
+import { mensagemAviso, mensagemSucesso } from './mensagensUtils';
 import { v4 as uuidv4 } from 'uuid';
 import SectionTarefas from './components/ui/SectionTarefas';
+import { Toaster } from "@/components/ui/toaster"
+
+
 
 
 function App() {
+
+
   //Executa 1 vez, faz referencia para o Input inicial
   const refInput = useRef(null)
   useEffect(() => {
     refInput.current.focus()
   }, [])
+
+  const [buttonBlock, setButtonBlock] = useState(false)
+
 
   //Estado para salvar dados 
   const [dadosTask, setDadosTask] = useState({
@@ -25,11 +34,6 @@ function App() {
     const dadosSalvos = localStorage.getItem("tarefa") // busca dados salvos no localStorage
     return dadosSalvos ? JSON.parse(dadosSalvos) : [] // se tiver dados, retorna eles, senão retorna array vazio
   })
-
-  //Estado para armazenar o erro de inputs
-  const [erroInput, setErroInput] = useState(false)
-
-
 
 
   //Caregar sempre que tiver alteração no array
@@ -50,9 +54,13 @@ function App() {
   console.log(dadosTask)
 
 
-  //Quando clicar no botão envie os dados salvos no objeto para o array, e limpe o id eos inputs
+
+  //Quando clicar no botão envie os dados salvos no objeto para o array, e limpe o id eos inputs, e adcione mensagem erro e sucesso
   const handleToSend = () => {
-    if (dadosTask.tarefa && dadosTask.categoria && dadosTask.prioridade) {
+    const dadosPrenchidos = dadosTask.tarefa && dadosTask.categoria && dadosTask.prioridade
+
+
+    if (dadosPrenchidos) {
       const task = dadosTask
       setAllTask(prev => [...prev, task])
       setDadosTask((prev) => ({
@@ -61,12 +69,16 @@ function App() {
         tarefa: "",
         prioridade: '',
         categoria: "",
-      }))
+      })
+      )
+      mensagemSucesso()
+
     } else {
-      setErroInput(true)
+      setButtonBlock(true)
       setTimeout(() => {
-        setErroInput(false)
-      }, 2000)
+        setButtonBlock(false)
+      }, 5000)
+      mensagemAviso()
     }
   }
 
@@ -78,6 +90,7 @@ function App() {
 
   return (
     <Box as="main" h="90vh" maxW="680px" display="flex" flexDirection="column" alignItems="center" margin="auto" >
+      <Toaster />
       <Flex gap="4" justify="space-between" w="100%" justifyItems="center" alignItems="center"  >
         <Heading fontSize={{ base: '16px', md: '16px', lg: '22px' }}>Add Task</Heading>
         <Text fontSize={{ base: '12px', md: '12px', lg: '14px' }} >Numero</Text>
@@ -121,6 +134,7 @@ function App() {
           </Box>
           <Button
             onClick={handleToSend}
+            disabled={buttonBlock}
             variant="solid"
             h="36px"
             w="80px"
@@ -131,10 +145,7 @@ function App() {
         </Flex>
       </Flex>
 
-        {erroInput && (
-          <Flex mt="16px" fontSize="xm" w="100%"  align="center" justify="center" color="red">Por favor digite todos os campos!</Flex>
-        )}
-      
+
       <SectionTarefas dadosTarefas={allTask} deleteTask={deleteTask} />
     </Box>
   )
