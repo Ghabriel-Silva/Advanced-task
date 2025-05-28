@@ -8,6 +8,11 @@ import { AiFillEdit } from "react-icons/ai";
 const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
+    
+    const completeTask = (id)=>{
+        console.log("tuntuntumn sahur")
+    }
+
 
     return (
         <Box w="100%" mt="40px">
@@ -63,7 +68,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                             <Table.Row key={e.id}>
                                 {/* Celula de cada linha */}
                                 <Table.Cell>
-                                    <Checkbox.Root>
+                                    <Checkbox.Root onClick={()=>completeTask(e.id)}>
                                         <Checkbox.HiddenInput />
                                         <Checkbox.Control></Checkbox.Control>
                                     </Checkbox.Root>
