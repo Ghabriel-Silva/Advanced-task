@@ -24,6 +24,8 @@ function App() {
     tarefa: "",
     prioridade: "",
     categoria: "",
+  
+
   })
 
   //Estado para armazenar as task criadas e armazenar no locall storge / Imita o useEffect atualiza apenas na criação do component
@@ -93,13 +95,16 @@ function App() {
   }, [allTask])
 
 
+
+
+
   //Excluir tarefas do meu array de objetos
   const deleteTask = (id, index) => {
     mensagemDelete("", index, () => {
       setAllTask((prev) => prev.filter((atual) => atual.id !== id))
     })
   }
-
+ 
   return (
     <Box as="main" h="90vh" maxW="680px" display="flex" flexDirection="column" alignItems="center" margin="auto" >
       <Toaster />
@@ -163,9 +168,9 @@ function App() {
       </Flex>
 
       {totalTask === 0 ? (
-        <Text mt="40px"  width="100%"  fontSize="22">Comece adicionando Tarefas!</Text>
+        <Text mt="40px" width="100%" fontSize="22">Comece adicionando Tarefas!</Text>
       ) : (
-        <SectionTarefas dadosTarefas={allTask} deleteTask={deleteTask} />
+        <SectionTarefas dadosTarefas={allTask} deleteTask={deleteTask}  />
       )}
     </Box>
   )

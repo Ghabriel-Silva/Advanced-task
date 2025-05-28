@@ -2,16 +2,13 @@ import { Table, Box, Text, Checkbox, CloseButton, Flex, Card } from "@chakra-ui/
 import { useBreakpointValue } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
+import { useState } from "react";
 
 
 
-const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
+const SectionTarefas = ({ dadosTarefas, deleteTask, completeTask }) => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
-    
-    const completeTask = (id)=>{
-        console.log("tuntuntumn sahur")
-    }
 
 
     return (
@@ -50,7 +47,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                         <Table.Row>
                             {/* Título da coluna */}
                             <Table.ColumnHeader>
-                                <Checkbox.Root>
+                                <Checkbox.Root  >
                                     <Checkbox.HiddenInput />
                                     <Checkbox.Control></Checkbox.Control>
                                 </Checkbox.Root>
@@ -68,7 +65,7 @@ const SectionTarefas = ({ dadosTarefas, deleteTask }) => {
                             <Table.Row key={e.id}>
                                 {/* Celula de cada linha */}
                                 <Table.Cell>
-                                    <Checkbox.Root onClick={()=>completeTask(e.id)}>
+                                    <Checkbox.Root > 
                                         <Checkbox.HiddenInput />
                                         <Checkbox.Control></Checkbox.Control>
                                     </Checkbox.Root>
