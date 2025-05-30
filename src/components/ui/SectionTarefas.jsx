@@ -6,9 +6,20 @@ import { useState } from "react";
 
 
 
-const SectionTarefas = ({ dadosTarefas, deleteTask, completeTask }) => {
+const SectionTarefas = ({ dadosTarefas, deleteTask, setDadosTask, dadosTask, setAllTask }) => {
 
     const isMobile = useBreakpointValue({ base: true, md: false });
+
+    const check = (id) => {
+        const tarefaEncontrada = dadosTarefas.find((est) => est.id === id);
+        if (tarefaEncontrada) {
+            console.log(tarefaEncontrada.id);
+            
+            // faça o que quiser com essa tarefa aqui
+            
+        }
+    }
+
 
 
     return (
@@ -65,7 +76,10 @@ const SectionTarefas = ({ dadosTarefas, deleteTask, completeTask }) => {
                             <Table.Row key={e.id}>
                                 {/* Celula de cada linha */}
                                 <Table.Cell>
-                                    <Checkbox.Root > 
+                                    <Checkbox.Root
+                                        checked={e.concluida}
+                                        onClick={() => check(e.id)}
+                                    >
                                         <Checkbox.HiddenInput />
                                         <Checkbox.Control></Checkbox.Control>
                                     </Checkbox.Root>

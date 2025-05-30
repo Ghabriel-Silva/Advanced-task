@@ -24,6 +24,7 @@ function App() {
     tarefa: "",
     prioridade: "",
     categoria: "",
+    concluida: false, 
   
 
   })
@@ -170,7 +171,7 @@ function App() {
       {totalTask === 0 ? (
         <Text mt="40px" width="100%" fontSize="22">Comece adicionando Tarefas!</Text>
       ) : (
-        <SectionTarefas dadosTarefas={allTask} deleteTask={deleteTask}  />
+        <SectionTarefas dadosTarefas={allTask} setAllTask={setAllTask} deleteTask={deleteTask}  setDadosTask={setDadosTask} dadosTask={dadosTask} />
       )}
     </Box>
   )
